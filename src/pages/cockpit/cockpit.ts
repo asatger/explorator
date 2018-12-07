@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AlimentationPage } from "../alimentation/alimentation";
+
 /**
  * Generated class for the CockpitPage page.
  *
@@ -15,7 +17,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CockpitPage {
 
+  private pushPage;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.pushPage = AlimentationPage;
   }
 
   ionViewDidLoad() {

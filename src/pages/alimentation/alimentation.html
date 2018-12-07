@@ -14,5 +14,36 @@
 
 
 <ion-content padding>
+  <ion-card>
 
+    <ion-card-header>
+      <!-- ça c'est quand il a faim, on n'a trouvé qu'une carotte désolé :/-->
+      <ion-icon name="nutrition"></ion-icon>  Alimentation
+      
+    </ion-card-header>
+  
+    <ion-card-content>
+        <h1 ion-text text-center text-md-left color="secondary">Vous n'avez pas manger depuis</h1>
+        <h1 ion-text text-center text-md-left margin-top>{{hoursEat}} heures et {{minutesEat}} minutes</h1> 
+        <h2 ion-text text-justify text-md-left margin-top>{{preventEat}}</h2>
+    </ion-card-content>
+  
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      <!-- et ça c'est quand il a soif 
+      Ps: L'abus d'alcool est dangereux pour la santé les jeunes !
+      -->
+      <ion-icon name="water"></ion-icon> Hydratation
+    </ion-card-header>
+  
+    <ion-card-content>
+        <h1 ion-text text-center text-md-left color="secondary">Vous n'avez pas bu depuis</h1>
+        <h1 ion-text text-center text-md-left margin-top>{{hoursDrink}} heures et {{minutesDrink}} minutes</h1> 
+        <h2 ion-text text-justify text-md-left margin-top>{{preventDrink}}</h2>
+    </ion-card-content>
+  
+  </ion-card>
 </ion-content>
