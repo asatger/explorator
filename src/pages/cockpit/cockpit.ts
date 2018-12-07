@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EnvironmentPage } from '../environment/environment';
-
 import { AlimentationPage } from "../alimentation/alimentation";
-import { EnvironmentPage } from "../environment/environment";
 import { WeatherPage } from '../weather/weather';
 
 /**
@@ -25,6 +23,8 @@ private navPush;
   private toWeather;
   private toAlimentation;
   
+
+  private pushPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.toEnvironment = EnvironmentPage;
