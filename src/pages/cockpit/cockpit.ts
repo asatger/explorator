@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EnvironmentPage } from '../environment/environment';
 
 /**
  * Generated class for the CockpitPage page.
@@ -14,8 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'cockpit.html',
 })
 export class CockpitPage {
+private navPush;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.navPush = EnvironmentPage;
   }
 
   ionViewDidLoad() {
