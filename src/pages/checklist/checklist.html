@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar color="dark">
+  <ion-navbar>
     <ion-title>
       Checkup
     </ion-title>
@@ -11,7 +11,7 @@
 
   <ion-item>
     <ion-input [(ngModel)]="todo" placeholder="To do to" type="text"> </ion-input>
-    <button ion-button item-end color="dark" (click)="addTodo()">
+    <button ion-button item-end color="primary" (click)="addTodo()">
       <ion-icon name="md-add"></ion-icon>
     </button>
   </ion-item>
@@ -25,7 +25,7 @@
         </ion-item>
 
         <ion-item-options side="right">
-          <button ion-button color="dark" (click)="delete(t,todos)">
+          <button ion-button color="danger" (click)="delete(t,todos)">
             <ion-icon name="md-remove"></ion-icon>
           </button>
         </ion-item-options>
@@ -38,7 +38,7 @@
 
   <ion-item>
     <ion-input [(ngModel)]="material" placeholder="Material to add" type="text"> </ion-input>
-    <button ion-button item-end color="dark" (click)="addMaterial()">
+    <button ion-button item-end color="primary" (click)="addMaterial()">
       <ion-icon name="md-add"></ion-icon>
     </button>
   </ion-item>
@@ -59,7 +59,7 @@
 
         <ion-item-options side="right">
 
-          <button ion-button color="dark" (click)="delete(m,materials)">
+          <button ion-button color="danger" (click)="delete(m,materials)">
             <ion-icon name="md-remove"></ion-icon>
           </button>
         </ion-item-options>
