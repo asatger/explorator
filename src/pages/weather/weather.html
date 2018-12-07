@@ -4,6 +4,91 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
+<style>
+  * {
+    --widthLama: 100px;
+  }
+
+  .lamaContainer {
+    position: relative;
+    margin: 50px
+  }
+
+  .lamaContainer * {
+    position: absolute;
+  }
+
+  .lamaContainer .hpContent {
+    position: absolute;
+  }
+
+  .lamaContainer .hpContent progress[value]::-webkit-progress-bar {
+    background-color: rgba(000, 000, 000, 0.7);
+  }
+
+  .lamaContainer .hpContent progress[value]::-webkit-progress-value {
+    background: #6eba4d;
+  }
+
+  .lamaContainer .hpContent progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: var(--widthLama);
+    top: -30px;
+  }
+
+  .lamaContainer .hpContent span {
+    position: relative;
+    top: -30px;
+    color: white;
+    font-weight: 600;
+  }
+
+  .lamaContainer .hpContent:nth-child(2) {
+    padding: 5px 0px;
+  }
+
+  .lamaContainer .lama {
+    width: var(--widthLama);
+    cursor: pointer;
+  }
+
+  .lamaContainer:hover .lama,
+  .lamaContainer:hover canvas {
+    -webkit-animation: shaking 0.4s infinite;
+    /* Safari 4+ */
+    -moz-animation: shaking 0.4s infinite;
+    /* Fx 5+ */
+    -o-animation: shaking 0.4s infinite;
+    /* Opera 12+ */
+    animation: shaking 0.4s infinite;
+    /* IE 10+, Fx 29+ */
+  }
+
+  /* Animation de tremblement au survol */
+
+  @keyframes shaking {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    50% {
+      transform: rotate(-5deg);
+    }
+
+    75% {
+      transform: rotate(5deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+</style>
+
 <ion-header>
 
   <ion-navbar>
@@ -29,5 +114,151 @@
   <ion-card>
     <img src="assets/imgs/weather.png" />
   </ion-card>
+
+  <div class="lamaContainer">
+    <img class="lama" src="assets/imgs/lama.png">
+    <canvas id="canvas"></canvas>
+    <div class="hpContent">
+      <progress id="file" name="file" max="100" value="100"></progress>
+      <span class="hp"></span><span> | </span><span class="hpMax"></span>
+    </div>
+  </div>
+
+
+  <script>
+    let progress = document.querySelector("progress");
+    let hpContent = document.querySelector(".hpContent");
+    let hp = document.querySelector(".hp");
+    let hpMax = document.querySelector(".hpMax");// selecteur de l'empalcement de la vie max dans la bare de vie
+    let lama = document.querySelector(".lama"); // selecteur de l'iamge du lama
+    let canvas = document.getElementById("canvas"); //selecteur du canvas
+    let context = canvas.getContext('2d'); //contexte du canvas
+    let cw, ch;//tailles du canvas
+    let lamaLives = 0; //vie du lamas (nb clicks)
+    let colors = ["#db7cf1", "#7539c0", "#039ece", "#7deafc", "#0146d2", "#4289fe"]; //couleurs des particules
+    let lifeBar = true;//affichage de la barre de vie (trop petit = pas de barre de vie)
+
+    let circleArr = [];
+    let circleNum = 30;
+    let radius = 5;
+    if (lama.width < 70) {
+      radius = 2;
+      lifeBar = false;
+    }
+    bind();
+
+    //Bind les events du domaine
+    function bind() {
+      hpContent.style.display = "none";
+      ch = context.canvas.height = lama.clientHeight;
+      cw = context.canvas.width = lama.clientWidth;
+      lamaLives = setLamaLives();
+      canvas.addEventListener("click", (e) => hit(e));
+    }
+
+    //Set le nombre de vie du lama
+    //min 10
+    //max 20
+    function setLamaLives() {
+      return Math.floor(Math.random() * Math.floor(10)) + 11;
+    }
+
+    //Event au chaque fois que le lama est frappé
+    function hit(event) {
+      if (isDead()) {
+        if (lamaLives >= 0) {
+          lamaLives--;
+          hpContent.style.display = "none"
+          lama.style.display = "none";
+          init(event);
+        }
+      }
+      else {
+        if (hpContent.style.display === "none" && lifeBar) {
+          hpContent.style.display = "initial";
+          hpMax.innerHTML = progress.max = lamaLives * 10;
+        }
+        lamaLives--;
+        if (lifeBar) {
+          progress.value = lamaLives * 10;
+          hp.innerHTML = lamaLives * 10;
+        }
+        init(event);
+      }
+    }
+    //Returne l'état du lama
+    function isDead() {
+      if (lamaLives > 1)
+        return false;
+      else {
+        return true;
+      }
+    }
+
+    //Objet des particules a chaque HIT
+    function Circle(x, y, radius, index) {
+      this.x = x;
+      this.y = y;
+      this.dx = Math.random() * 10 - 5;
+      this.dy = Math.random() * 10 - 5;
+      this.gravity = 0;
+      this.radius = radius;
+
+      this.id = index;
+      this.life = 0;
+      this.maxLife = 15;
+      this.color = colors[Math.floor(Math.random() * colors.length)];
+
+
+      this.draw = () => {
+        context.beginPath();
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        context.fillStyle = this.color;
+        context.fill();
+      }
+
+      this.update = () => {
+        if (this.x + this.radius > cw || this.x - this.radius < 0) {
+          this.dx = -this.dx;
+        }
+        if (this.y + this.radius > ch || this.y - this.radius < 0) {
+          this.dy = -this.dy;
+        }
+        this.life++;
+        //MERCI ONEPOINT. <3 
+        if (this.life >= this.maxLife) {
+          circleArr.splice(
+            circleArr.findIndex(
+              (element) => {
+                return element.id === this.id;
+              }
+            )
+          );
+        }
+        this.x += this.dx;
+        this.y += this.dy;
+        this.dy += this.gravity;
+        this.draw();
+      }
+    }
+
+    //Initialise les particules du click
+    function init(e) {
+      circleArr = [];
+      for (let i = 0; i < circleNum; i++) {
+        circleArr.push(new Circle(e.offsetX, e.offsetY, radius, i));
+      }
+    }
+
+    //Anime les cercles pour qu'ils se deplacent
+    function animateCircle() {
+      requestAnimationFrame(animateCircle);
+      context.clearRect(0, 0, cw, ch);
+      for (let i = 0; i < circleArr.length; i++) {
+        circleArr[i].update();
+      }
+    }
+    animateCircle();
+  </script>
 
 </ion-content>

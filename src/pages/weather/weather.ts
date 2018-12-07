@@ -23,4 +23,6 @@ export class WeatherPage {
     console.log('ionViewDidLoad WeatherPage');
   }
 
+  
+
 }

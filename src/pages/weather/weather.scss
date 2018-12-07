@@ -4,4 +4,77 @@ page-weather {
         font-size: 40px;
     }
 
+
+*{
+    --widthLama: 100px;
+}
+
+.lamaContainer{
+    position: relative;
+    margin: 50px
+}
+
+.lamaContainer *{
+    position: absolute;
+}
+
+.lamaContainer .hpContent{
+    position: absolute;
+}
+
+.lamaContainer .hpContent progress[value]::-webkit-progress-bar {
+    background-color: rgba(000, 000, 000, 0.7);
+}
+
+.lamaContainer .hpContent progress[value]::-webkit-progress-value {
+    background: #6eba4d;
+}
+
+.lamaContainer .hpContent progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: var(--widthLama);
+    top: -30px;
+}
+
+.lamaContainer .hpContent span{
+    position: relative;
+    top: -30px;
+    color: white;
+    font-weight: 600;
+}
+
+.lamaContainer .hpContent:nth-child(2){
+    padding: 5px 0px;
+}
+.lamaContainer .lama{
+    width: var(--widthLama);
+    cursor: pointer;
+}
+.lamaContainer:hover .lama, .lamaContainer:hover canvas{
+    -webkit-animation: shaking 0.4s infinite; /* Safari 4+ */
+    -moz-animation:    shaking 0.4s infinite; /* Fx 5+ */
+    -o-animation:      shaking 0.4s infinite; /* Opera 12+ */
+    animation:         shaking 0.4s infinite; /* IE 10+, Fx 29+ */
+}
+  
+  /* Animation de tremblement au survol */
+  
+@keyframes shaking {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    50% { 
+      transform: rotate(-5deg);
+    }
+    75% { 
+      transform: rotate(5deg);
+    }
+    100% { 
+      transform: rotate(0deg);
+    }
+}
+
 }
