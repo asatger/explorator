@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EnvironmentPage } from '../environment/environment';
 
 import { AlimentationPage } from "../alimentation/alimentation";
 import { EnvironmentPage } from "../environment/environment";
@@ -18,6 +19,7 @@ import { WeatherPage } from '../weather/weather';
   templateUrl: 'cockpit.html',
 })
 export class CockpitPage {
+private navPush;
 
   private toEnvironment;
   private toWeather;

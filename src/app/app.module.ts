@@ -13,6 +13,7 @@ import { AlimentationPage } from '../pages/alimentation/alimentation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { WeatherPage } from '../pages/weather/weather';
+import { AssistancePage } from '../pages/assistance/assistance';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WeatherPage } from '../pages/weather/weather';
     EnvironmentPage,
     CockpitPage,
     AlimentationPage,
-    WeatherPage
+    WeatherPage,
+    AssistancePage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import { WeatherPage } from '../pages/weather/weather';
     EnvironmentPage,
     CockpitPage,
     AlimentationPage,
-    WeatherPage
+    WeatherPage,
+    AssistancePage
   ],
   providers: [
     StatusBar,
