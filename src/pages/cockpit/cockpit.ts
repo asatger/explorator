@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AlimentationPage } from "../alimentation/alimentation";
+import { EnvironmentPage } from "../environment/environment";
+import { WeatherPage } from '../weather/weather';
+
 /**
  * Generated class for the CockpitPage page.
  *
@@ -15,7 +19,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CockpitPage {
 
+  private toEnvironment;
+  private toWeather;
+  private toAlimentation;
+  
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.toEnvironment = EnvironmentPage;
+    this.toAlimentation = AlimentationPage;
+    this.toWeather = WeatherPage;
   }
 
   ionViewDidLoad() {
